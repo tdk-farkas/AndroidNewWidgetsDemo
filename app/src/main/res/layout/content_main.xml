@@ -11,7 +11,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-
+    <!--
+    xmlns:tools="http://schemas.android.com/tools"-->
     <!--
         AppBarLayout跟它的名字一样，把容器类的组件全部作为AppBar。
             将AppBarLayout放在CoordinatorLayout中，就可以实现滚动效果。
@@ -99,9 +100,12 @@
     -->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/id_floatingactionbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="56dip"
+        android:layout_height="56dip"
         android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/view_w_margin_12"
+        android:layout_marginRight="@dimen/view_w_margin_12"
+        android:layout_marginBottom="@dimen/view_h_margin_12"
         android:src="@mipmap/ic_action_plusone"
         app:backgroundTint="@color/main_blue_light"
         app:elevation="6dp"

@@ -17,10 +17,10 @@ import com.sunjiajia.androidnewwidgetsdemo.adapter.MyRecyclerViewAdapter;
 import com.sunjiajia.androidnewwidgetsdemo.adapter.MyStaggeredViewAdapter;
 import com.sunjiajia.androidnewwidgetsdemo.utils.SnackbarUtil;
 
-/**
- * Created by Monkey on 2015/6/29.
- */
-public class MyFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, MyRecyclerViewAdapter.OnItemClickListener, MyStaggeredViewAdapter.OnItemClickListener {
+
+public class MyFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,
+                                                    MyRecyclerViewAdapter.OnItemClickListener,
+                                                    MyStaggeredViewAdapter.OnItemClickListener {
 
     private View mView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -38,8 +38,6 @@ public class MyFragment extends Fragment implements SwipeRefreshLayout.OnRefresh
     private static final int SPAN_COUNT = 2;
     private int flag = 0;
 
-
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.frag_main, container, false);
@@ -118,7 +116,7 @@ public class MyFragment extends Fragment implements SwipeRefreshLayout.OnRefresh
 
     @Override
     public void onItemClick(View view, int position) {
-        SnackbarUtil.show(mRecyclerView, getString(R.string.item_clicked), 0);
+        SnackbarUtil.show(view, getString(R.string.item_clicked), 0);
     }
 
     @Override

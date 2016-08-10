@@ -1,13 +1,10 @@
 package com.sunjiajia.androidnewwidgetsdemo;
 
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.TabLayout.TabLayoutOnPageChangeListener;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -17,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.RotateAnimation;
 
 import com.sunjiajia.androidnewwidgetsdemo.adapter.MyViewPagerAdapter;
 import com.sunjiajia.androidnewwidgetsdemo.utils.SnackbarUtil;
@@ -32,7 +28,7 @@ public class MyActivity extends AppCompatActivity implements ViewPager.OnPageCha
     //初始化各种控件，照着xml中的顺序写
     private DrawerLayout mDrawerLayout;
     private CoordinatorLayout mCoordinatorLayout;
-    private AppBarLayout mAppBarLayout;
+//    private AppBarLayout mAppBarLayout;
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -43,8 +39,6 @@ public class MyActivity extends AppCompatActivity implements ViewPager.OnPageCha
     private String[] mTitles;
     // 填充到ViewPager中的Fragment
     private List<Fragment> mFragments;
-    // ViewPager的数据适配器
-    private MyViewPagerAdapter mViewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +54,6 @@ public class MyActivity extends AppCompatActivity implements ViewPager.OnPageCha
 
         // 对各种控件进行设置、适配、填充数据
         configViews();
-
     }
 
     private void initData() {
@@ -77,7 +70,6 @@ public class MyActivity extends AppCompatActivity implements ViewPager.OnPageCha
             mFragment.setArguments(mBundle);
             mFragments.add(i, mFragment);
         }
-
     }
 
     private void configViews() {
@@ -88,8 +80,8 @@ public class MyActivity extends AppCompatActivity implements ViewPager.OnPageCha
         // 设置Drawerlayout开关指示器，即Toolbar最左边的那个icon
         ActionBarDrawerToggle mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close);
         mActionBarDrawerToggle.syncState();
-        mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
-
+//        mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
+        mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
         //给NavigationView填充顶部区域，也可在xml中使用app:headerLayout="@layout/header_nav"来设置
         mNavigationView.inflateHeaderView(R.layout.header_nav);
         //给NavigationView填充Menu菜单，也可在xml中使用app:menu="@menu/menu_nav"来设置
@@ -99,7 +91,9 @@ public class MyActivity extends AppCompatActivity implements ViewPager.OnPageCha
         onNavgationViewMenuItemSelected(mNavigationView);
 
         // 初始化ViewPager的适配器，并设置给它
-        mViewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager(), mTitles, mFragments);
+
+        // ViewPager的数据适配器
+        MyViewPagerAdapter mViewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager(), mTitles, mFragments);
         mViewPager.setAdapter(mViewPagerAdapter);
         // 设置ViewPager最大缓存的页面个数
         mViewPager.setOffscreenPageLimit(5);
@@ -109,19 +103,15 @@ public class MyActivity extends AppCompatActivity implements ViewPager.OnPageCha
         mTabLayout.setTabMode(MODE_SCROLLABLE);
         // 将TabLayout和ViewPager进行关联，让两者联动起来
         mTabLayout.setupWithViewPager(mViewPager);
-        // 设置Tablayout的Tab显示ViewPager的适配器中的getPageTitle函数获取到的标题
-        mTabLayout.setTabsFromPagerAdapter(mViewPagerAdapter);
+//        // 设置Tablayout的Tab显示ViewPager的适配器中的getPageTitle函数获取到的标题    现在会自动修改标题
+//        mTabLayout.setTabsFromPagerAdapter(mViewPagerAdapter);
 
         // 设置FloatingActionButton的点击事件
         mFloatingActionButton.setOnClickListener(this);
-
-
     }
 
     /**
      * 设置NavigationView中menu的item被选中后要执行的操作
-     *
-     * @param mNav
      */
     private void onNavgationViewMenuItemSelected(NavigationView mNav) {
         mNav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -160,7 +150,7 @@ public class MyActivity extends AppCompatActivity implements ViewPager.OnPageCha
     private void initViews() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawerlayout);
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.id_coordinatorlayout);
-        mAppBarLayout = (AppBarLayout) findViewById(R.id.id_appbarlayout);
+//        mAppBarLayout = (AppBarLayout) findViewById(R.id.id_appbarlayout);
         mToolbar = (Toolbar) findViewById(R.id.id_toolbar);
         mTabLayout = (TabLayout) findViewById(R.id.id_tablayout);
         mViewPager = (ViewPager) findViewById(R.id.id_viewpager);
@@ -179,11 +169,7 @@ public class MyActivity extends AppCompatActivity implements ViewPager.OnPageCha
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings||super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -206,7 +192,7 @@ public class MyActivity extends AppCompatActivity implements ViewPager.OnPageCha
         switch (v.getId()) {
             // FloatingActionButton的点击事件
             case R.id.id_floatingactionbutton:
-                SnackbarUtil.show(v, getString(R.string.plusone), 0);
+                SnackbarUtil.show(mCoordinatorLayout, getString(R.string.plusone), 0);
                 break;
         }
     }

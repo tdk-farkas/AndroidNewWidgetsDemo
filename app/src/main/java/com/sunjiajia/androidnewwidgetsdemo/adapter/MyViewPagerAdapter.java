@@ -6,9 +6,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-/**
- * Created by Monkey on 2015/6/29.
- */
 public class MyViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private String[] mTitles;

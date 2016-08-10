@@ -6,9 +6,6 @@ import android.widget.TextView;
 
 import com.sunjiajia.androidnewwidgetsdemo.R;
 
-/**
- * Created by Monkey on 2015/6/29.
- */
 public class MyRecyclerViewHolder extends RecyclerView.ViewHolder {
 
     public TextView mTextView;

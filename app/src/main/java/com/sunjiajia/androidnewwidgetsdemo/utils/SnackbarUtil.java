@@ -5,9 +5,6 @@ import android.view.View;
 
 import com.sunjiajia.androidnewwidgetsdemo.R;
 
-/**
- * Created by Monkey on 2015/7/1.
- */
 public class SnackbarUtil {
 
     // android-support-design兼容包中新添加的一个类似Toast的控件。
@@ -28,7 +25,6 @@ public class SnackbarUtil {
             @Override
             public void onClick(View v) {
                 // Snackbar在点击“关闭”后消失
-                mSnackbar.dismiss();
             }
         });
     }

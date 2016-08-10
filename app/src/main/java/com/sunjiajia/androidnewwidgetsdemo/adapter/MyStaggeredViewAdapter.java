@@ -11,9 +11,6 @@ import com.sunjiajia.androidnewwidgetsdemo.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Monkey on 2015/6/29.
- */
 public class MyStaggeredViewAdapter extends RecyclerView.Adapter<MyRecyclerViewHolder> {
 
     public interface OnItemClickListener {
@@ -53,27 +50,26 @@ public class MyStaggeredViewAdapter extends RecyclerView.Adapter<MyRecyclerViewH
     @Override
     public MyRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View mView = mLayoutInflater.inflate(R.layout.item_main, parent, false);
-        MyRecyclerViewHolder mViewHolder = new MyRecyclerViewHolder(mView);
-        return mViewHolder;
+        return new MyRecyclerViewHolder(mView);
     }
 
     /**
      * 绑定ViewHoler，给item中的控件设置数据
      */
     @Override
-    public void onBindViewHolder(final MyRecyclerViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyRecyclerViewHolder holder, int position) {
         if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(holder.itemView, position);
+                    mOnItemClickListener.onItemClick(holder.itemView, holder.getAdapterPosition());
                 }
             });
 
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    mOnItemClickListener.onItemLongClick(holder.itemView, position);
+                    mOnItemClickListener.onItemLongClick(holder.itemView, holder.getAdapterPosition());
                     return true;
                 }
             });
